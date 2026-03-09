@@ -1,4 +1,4 @@
-<center>
+
 <img src="UWECONimage.png">
 
 # University of Waterloo Economics Society (UWES)
@@ -24,8 +24,6 @@ Check out our social media for more information and upcoming events!
 - <a href="https://x.com/UWEconSoc">X</a>
 
 Looking forward to meeting you at our events!
-
-</center>
 
 (**Website still in construction**)
 
