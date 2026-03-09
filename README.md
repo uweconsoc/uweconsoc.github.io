@@ -15,6 +15,7 @@ Check out our social media for more information and upcoming events!
 - Facebook
 - LinkedIn
 - X
+
 Looking forward to meeting you at our events!
 
 (**Website still in construction**)
