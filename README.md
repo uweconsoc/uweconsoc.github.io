@@ -17,6 +17,6 @@ Check out our social media for more information and upcoming events!
 - X
 Looking forward to meeting you at our events!
 
-**Website still in construction**
+(**Website still in construction**)
 
 Contributors: Mark Ghazi, Jianing Li
