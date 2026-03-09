@@ -1,3 +1,6 @@
+
+<img src="UWECON.png">
+
 # University of Waterloo Economics Society (UWES)
 UWES is a student-run organization, connecting our economics students outside the classroom. Our mandate is to provide economics students with the tools and infrastructure for collaborative engagement, support, and learning. We aim to create social and academic opportunities to enhance the student experience, promote networking and skill development.
 
