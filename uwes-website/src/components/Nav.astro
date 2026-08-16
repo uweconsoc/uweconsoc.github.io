@@ -1,0 +1,68 @@
+<nav class="nav">
+  <div class="nav-inner">
+    <ul class="nav-links">
+      <li><a href="/markets">Markets</a></li>
+      <li><a href="/newspaper">News</a></li>
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/team">Team</a></li>
+      <li><a href="/events">Events</a></li>
+    </ul>
+    <a href="/join" class="join-btn">Join Us</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    background-color: var(--color-bg);
+    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+    padding: 1.25rem 2rem;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent-light);
+  }
+
+  .join-btn {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* 手机端:菜单先简单堆叠,后面可以再做汉堡菜单 */
+  @media (max-width: 768px) {
+    .nav-inner {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+</style>

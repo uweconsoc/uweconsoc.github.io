@@ -1,0 +1,63 @@
+---
+const issues = [
+  { title: "Tariffs and the New Trade Order", date: "Aug 10, 2026" },
+  { title: "Inside the Bank of Canada's Rate Decision", date: "Aug 3, 2026" },
+  { title: "Tech Layoffs: A Labor Market Signal?", date: "Jul 27, 2026" },
+];
+---
+
+<div class="newspaper">
+  <div class="section-header">
+    <h2>The Econ Review</h2>
+    <a href="/newspaper" class="view-all">View All →</a>
+  </div>
+
+  <ul class="issue-list">
+    {issues.map((issue) => (
+      <li class="issue-item">
+        <p class="issue-date">{issue.date}</p>
+        <h3 class="issue-title">{issue.title}</h3>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    color: var(--color-accent-light);
+  }
+
+  .view-all {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .issue-list {
+    list-style: none;
+  }
+
+  .issue-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+  }
+
+  .issue-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+
+  .issue-title {
+    font-size: 1.15rem;
+  }
+</style>

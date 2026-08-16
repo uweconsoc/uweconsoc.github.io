@@ -1,0 +1,62 @@
+---
+const articles = [
+  { title: "Modeling Inflation Expectations in Post-Pandemic Markets", author: "Research Team" },
+  { title: "The Economics of University Housing Shortages", author: "Research Team" },
+  { title: "ESG Investing: Signal or Noise?", author: "Research Team" },
+];
+---
+
+<div class="articles">
+  <div class="section-header">
+    <h2>Research Articles</h2>
+    <a href="/articles" class="view-all">View All →</a>
+  </div>
+
+  <ul class="article-list">
+    {articles.map((article) => (
+      <li class="article-item">
+        <h3 class="article-title">{article.title}</h3>
+        <p class="article-author">{article.author}</p>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    color: var(--color-accent-light);
+  }
+
+  .view-all {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .article-list {
+    list-style: none;
+  }
+
+  .article-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+  }
+
+  .article-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .article-author {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+</style>

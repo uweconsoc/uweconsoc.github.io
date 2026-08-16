@@ -1,0 +1,70 @@
+---
+const events = [
+  { title: "Networking Night with Alumni", date: "Sept 5, 2026", location: "SLC Great Hall" },
+  { title: "Intro to Behavioral Economics Talk", date: "Aug 28, 2026", location: "HH 180" },
+  { title: "Trading Simulation Workshop", date: "Aug 20, 2026", location: "STC 0060" },
+];
+---
+
+<div class="events">
+  <div class="section-header">
+    <h2>Events</h2>
+    <a href="/events" class="view-all">View All →</a>
+  </div>
+
+  <ul class="event-list">
+    {events.map((event) => (
+      <li class="event-item">
+        <p class="event-date">{event.date}</p>
+        <h3 class="event-title">{event.title}</h3>
+        <p class="event-location">{event.location}</p>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    color: var(--color-accent-light);
+  }
+
+  .view-all {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .event-list {
+    list-style: none;
+  }
+
+  .event-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+  }
+
+  .event-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+
+  .event-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .event-location {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+</style>

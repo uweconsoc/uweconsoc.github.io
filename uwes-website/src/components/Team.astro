@@ -1,0 +1,92 @@
+---
+const coPresidents = [
+  { name: "Mateo Racco", role: "Co-President" },
+  { name: "Ernest", role: "Co-President" },
+];
+---
+
+<section class="team-section">
+  <div class="team-inner">
+    <div class="section-header">
+      <h2>Meet the Team</h2>
+      <a href="/team" class="view-all">View All →</a>
+    </div>
+
+    <div class="team-grid">
+      {coPresidents.map((person) => (
+        <div class="team-card">
+          <div class="team-photo-placeholder"></div>
+          <h3 class="team-name">{person.name}</h3>
+          <p class="team-role">{person.role}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-section {
+    padding: 3rem 2rem;
+  }
+
+  .team-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    color: var(--color-accent-light);
+  }
+
+  .view-all {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 300px));
+    gap: 2rem;
+  }
+
+  .team-card {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .team-photo-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(232, 146, 42, 0.15);
+    margin: 0 auto 1rem;
+  }
+
+  .team-name {
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .team-role {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+  }
+</style>

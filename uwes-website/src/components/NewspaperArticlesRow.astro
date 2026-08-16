@@ -1,0 +1,35 @@
+---
+import Newspaper from './Newspaper.astro';
+import Articles from './Articles.astro';
+---
+
+<section class="row-section">
+  <div class="row-inner">
+    <div class="col-newspaper">
+      <Newspaper />
+    </div>
+    <div class="col-articles">
+      <Articles />
+    </div>
+  </div>
+</section>
+
+<style>
+  .row-section {
+    padding: 3rem 2rem;
+  }
+
+  .row-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .row-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
