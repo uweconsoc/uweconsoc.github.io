@@ -15,7 +15,7 @@ const articles = [
   <ul class="article-list">
     {articles.map((article) => (
       <li class="article-item">
-        <h3 class="article-title">{article.title}</h3>
+                <h3 class="article-title"><a href="#">{article.title}</a></h3>
         <p class="article-author">{article.author}</p>
       </li>
     ))}
@@ -58,5 +58,13 @@ const articles = [
   .article-author {
     color: var(--color-text-muted);
     font-size: 0.9rem;
+  }
+
+  .article-title a {
+    color: inherit;
+  }
+
+  .article-title a:hover {
+    color: var(--color-accent-light);
   }
 </style>

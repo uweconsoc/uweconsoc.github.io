@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const teamGroups = [
+  {
+    name: "Executive",
+    members: [
+      { name: "Mateo Racco", role: "Co-President" },
+      { name: "Ernest Bakhchinian", role: "Co-President" },
+    ],
+  },
+  {
+    name: "Research Team",
+    members: [
+      { name: "TBD", role: "VP Research" },
+      { name: "Jianing Li", role: "Research Analyst" },
+      { name: "TBD", role: "Research Analyst" },
+    ],
+  },
+  {
+    name: "Marketing Team",
+    members: [
+      { name: "TBD", role: "VP Marketing" },
+      { name: "TBD", role: "Marketing Associate" },
+    ],
+  },
+  {
+    name: "Finance Team",
+    members: [
+      { name: "Zuhair Rahman", role: "VP Finance" },
+      { name: "TBD", role: "Finance Associate" },
+    ],
+  },
+  {
+    name: "Event Team",
+    members: [
+      { name: "TBD", role: "VP Events" },
+      { name: "TBD", role: "Events Associate" },
+    ],
+  },
+  {
+    name: "Web Dev Team",
+    members: [
+      { name: "Jianing Li", role: "Web Developer" },
+      { name: "Sargun Bhatti", role: "Web Developer"},
+    ],
+  },
+];
+---
+
+<Layout title="Team - UW Economics Society">
+  <Nav />
+  <main>
+    <section class="team-page">
+      <div class="team-page-inner">
+        <h1 class="page-title">Meet the Team</h1>
+        <p class="page-subtitle">The people behind UWES</p>
+
+        {teamGroups.map((group) => (
+          <div class="team-group">
+            <h2 class="group-title">{group.name}</h2>
+            <div class="team-grid">
+              {group.members.map((person) => (
+                <div class="team-card">
+                  <div class="team-photo-placeholder"></div>
+                  <h3 class="team-name">{person.name}</h3>
+                  <p class="team-role">{person.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .team-page {
+    padding: 3rem 2rem;
+  }
+
+  .team-page-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+  }
+
+  .team-group {
+    margin-bottom: 3rem;
+  }
+
+  .group-title {
+    font-size: 1.5rem;
+    color: var(--color-accent-light);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .team-card {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .team-photo-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(232, 146, 42, 0.15);
+    margin: 0 auto 1rem;
+  }
+
+  .team-name {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .team-role {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+</style>
