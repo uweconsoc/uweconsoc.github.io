@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const issues = [
+  { title: "Tariffs and the New Trade Order", date: "Aug 10, 2026", author: "Research Team" },
+  { title: "Inside the Bank of Canada's Rate Decision", date: "Aug 3, 2026", author: "Research Team" },
+  { title: "Tech Layoffs: A Labor Market Signal?", date: "Jul 27, 2026", author: "Research Team" },
+  { title: "Housing Affordability: A Waterloo Case Study", date: "Jul 20, 2026", author: "Research Team" },
+  { title: "The Rise of Private Credit Markets", date: "Jul 13, 2026", author: "Research Team" },
+];
+---
+
+<Layout title="The Econ Review - UW Economics Society">
+  <Nav />
+  <main>
+    <section class="newspaper-page">
+      <div class="newspaper-page-inner">
+        <h1 class="page-title">Weekly Newspaper</h1>
+        <p class="page-subtitle">Weekly commentary from the UWES research team</p>
+
+        <ul class="issue-list">
+          {issues.map((issue) => (
+            <li class="issue-item">
+              <p class="issue-date">{issue.date}</p>
+              <h3 class="issue-title"><a href="#">{issue.title}</a></h3>
+              <p class="issue-author">{issue.author}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .newspaper-page {
+    padding: 3rem 2rem;
+  }
+
+  .newspaper-page-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-accent-light);
+  }
+
+  .page-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+  }
+
+  .issue-list {
+    list-style: none;
+  }
+
+  .issue-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+  }
+
+  .issue-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+
+  .issue-title a {
+    color: inherit;
+    font-size: 1.15rem;
+  }
+
+  .issue-title a:hover {
+    color: var(--color-accent-light);
+  }
+
+  .issue-author {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+</style>

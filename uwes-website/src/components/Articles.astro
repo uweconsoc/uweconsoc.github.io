@@ -1,8 +1,8 @@
 ---
 const articles = [
-  { title: "Modeling Inflation Expectations in Post-Pandemic Markets", author: "Research Team" },
-  { title: "The Economics of University Housing Shortages", author: "Research Team" },
-  { title: "ESG Investing: Signal or Noise?", author: "Research Team" },
+  { title: "Modeling Inflation Expectations in Post-Pandemic Markets", date: "Aug 12, 2026", author: "Research Team" },
+  { title: "The Economics of University Housing Shortages", date: "Aug 5, 2026", author: "Research Team" },
+  { title: "ESG Investing: Signal or Noise?", date: "Jul 29, 2026", author: "Research Team" },
 ];
 ---
 
@@ -14,9 +14,10 @@ const articles = [
 
   <ul class="article-list">
     {articles.map((article) => (
-      <li class="article-item">
-                <h3 class="article-title"><a href="#">{article.title}</a></h3>
-        <p class="article-author">{article.author}</p>
+        <li class="article-item">
+         <p class="article-date">{article.date}</p>
+          <h3 class="article-title"><a href="#">{article.title}</a></h3>
+         <p class="article-author">{article.author}</p>
       </li>
     ))}
   </ul>
@@ -55,16 +56,25 @@ const articles = [
     margin-bottom: 0.3rem;
   }
 
-  .article-author {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+  .article-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
   }
 
   .article-title a {
     color: inherit;
+    font-size: 1.15rem;
   }
 
   .article-title a:hover {
     color: var(--color-accent-light);
+  }
+
+  .article-author {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
   }
 </style>
