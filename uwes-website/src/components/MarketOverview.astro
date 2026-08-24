@@ -1,4 +1,4 @@
-<div class="market">
+<div class="market card">
   <div class="section-header">
     <h2>Global Market Overview</h2>
   </div>
@@ -15,15 +15,24 @@
 
   .section-header h2 {
     font-size: 1.75rem;
-    color: var(--color-accent-light);
+    color: var(--color-accent-cream);
   }
 
   .market-placeholder {
     background-color: var(--color-card-bg);
-    border: 1px dashed rgba(245, 241, 234, 0.2);
+    border: 1px dashed rgba(255, 255, 255, 0.35);
     border-radius: 8px;
     padding: 3rem 2rem;
     text-align: center;
     color: var(--color-text-muted);
+  }
+
+  .card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    height: 100%;
+    box-sizing: border-box;
   }
 </style>

@@ -1,11 +1,14 @@
 <nav class="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-brand">UWES</a>
+    <a href="/" class="nav-brand">
+      <img src="/images/logo-icon-white-bg.png" alt="UWES" class="nav-icon" />
+      UWES
+    </a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/events">Events</a></li>
       <li><a href="/markets">Markets</a></li>
-      <li><a href="/newspaper">News</a></li>
+      <li><a href="/newspaper">Newsletter</a></li>
       <li><a href="/articles">Articles</a></li>
       <li><a href="/team">Team</a></li>
       
@@ -17,7 +20,7 @@
 <style>
   .nav {
     background-color: var(--color-bg);
-    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1.25rem 2rem;
   }
 
@@ -35,6 +38,15 @@
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
   }
 
   .nav-links {
@@ -44,17 +56,17 @@
   }
 
   .nav-links a {
-    color: var(--color-text-muted);
+    color: var(--color-text);
     font-size: 0.95rem;
     transition: color 0.2s ease;
   }
 
   .nav-links a:hover {
-    color: var(--color-accent-light);
+    color: var(--color-accent);
   }
 
   .join-btn {
-    background-color: var(--color-accent);
+    background-color: var(--color-accent-cream);
     color: var(--color-bg);
     padding: 0.6rem 1.25rem;
     border-radius: 4px;

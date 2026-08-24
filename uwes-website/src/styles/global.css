@@ -1,15 +1,28 @@
 :root {
-  /* color */
-  --color-bg: #1f1b16;
-  --color-accent: #e8922a;
-  --color-accent-light: #f5c299;
-  --color-card-bg: #201d12;
-  --color-text: #f5f1ea;
-  --color-text-muted: #a89e8f;
+  /* Dark version */
+  --color-bg: #17392b;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --color-accent: #8fbf6a;
+  --color-accent-light: #8fbf6a;
+  --color-card-bg: rgba(255, 255, 255, 0.06);
+  --color-card-border: rgba(255, 255, 255, 0.14);
+  --color-accent-cream: #f0dcae;
 
-  /* font */
+  /* Font */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'DM Sans', sans-serif;
+}
+
+/* Lighter version */
+.section-light {
+  --color-bg: #f4f1e8;
+  --color-text: #17392b;
+  --color-text-muted: #7a7a70;
+  --color-accent: #5f8a4a;
+  --color-accent-light: #5f8a4a;
+  --color-card-bg: rgba(23, 57, 43, 0.06);
+  --color-card-border: rgba(23, 57, 43, 0.15);
 }
 
 * {

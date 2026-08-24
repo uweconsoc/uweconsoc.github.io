@@ -16,7 +16,9 @@ import MarketOverview from './MarketOverview.astro';
 
 <style>
   .row-section {
-    padding: 3rem 2rem;
+    padding: 4rem 2rem;
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(to right, transparent, rgba(240, 220, 174, 0.3), transparent) 1;
   }
 
   .row-inner {
@@ -25,6 +27,7 @@ import MarketOverview from './MarketOverview.astro';
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
+    align-items: stretch;
   }
 
   @media (max-width: 768px) {
