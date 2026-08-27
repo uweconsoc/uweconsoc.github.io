@@ -6,12 +6,20 @@
     </a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
-      <li><a href="/events">Events</a></li>
+      <li class="dropdown">
+        <button class="dropdown-trigger" aria-expanded="false">
+          Events
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="/events">Upcoming Events</a></li>
+          <li><a href="/events/past/1">Past Events</a></li>
+        </ul>
+      </li>
       <li><a href="/markets">Markets</a></li>
       <li><a href="/newspaper">Newsletter</a></li>
       <li><a href="/articles">Articles</a></li>
       <li><a href="/team">Team</a></li>
-      
     </ul>
     <a href="/join" class="join-btn">Join Us</a>
   </div>
@@ -74,6 +82,77 @@
     font-size: 0.9rem;
   }
 
+    .dropdown {
+    position: relative;
+  }
+
+  .dropdown-trigger {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+    vertical-align: baseline;
+  }
+
+  .dropdown-trigger:hover {
+    color: var(--color-accent);
+  }
+
+  .dropdown-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+  }
+
+  .dropdown[data-open="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.75rem;
+    background-color: #234a38;
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    min-width: 180px;
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    z-index: 10;
+  }
+
+  .dropdown[data-open="true"] .dropdown-menu {
+    display: flex;
+  }
+
+  .dropdown-menu li:first-child a {
+    border-bottom: 1px solid var(--color-card-border);
+  }
+
+  .dropdown-menu li a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: var(--color-text);
+    font-size: 0.9rem;
+  }
+
+  .dropdown-menu li a:hover {
+    color: var(--color-accent);
+    background-color: var(--color-card-bg);
+  }
+
   /* 手机端:菜单先简单堆叠,后面可以再做汉堡菜单 */
   @media (max-width: 768px) {
     .nav-inner {
@@ -88,3 +167,22 @@
     }
   }
 </style>
+
+<script>
+  document.querySelectorAll('.dropdown-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const dropdown = trigger.closest('.dropdown');
+      const isOpen = dropdown.getAttribute('data-open') === 'true';
+      dropdown.setAttribute('data-open', isOpen ? 'false' : 'true');
+      trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.dropdown[data-open="true"]').forEach((dropdown) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.setAttribute('data-open', 'false');
+      }
+    });
+  });
+</script>

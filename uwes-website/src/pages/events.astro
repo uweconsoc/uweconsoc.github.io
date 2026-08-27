@@ -3,50 +3,73 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const upcomingEvents = [
-  { title: "Networking Night with Alumni", date: "Sept 5, 2026", location: "SLC Great Hall" },
-  { title: "Intro to Behavioral Economics Talk", date: "Aug 28, 2026", location: "HH 180" },
-  { title: "Trading Simulation Workshop", date: "Aug 20, 2026", location: "STC 0060" },
-];
+import { upcomingEvents, pastEvents } from '../data/events.js';
 
-const pastEvents = [
-  { title: "Summer Kickoff Social", date: "May 15, 2026", location: "SLC Multipurpose Room" },
-  { title: "Guest Talk: Careers in Central Banking", date: "Apr 3, 2026", location: "HH 227" },
-];
+const recentPastEvents = pastEvents.slice(0, 5);
+
+const [featuredEvent, ...otherUpcoming] = upcomingEvents;
+const MAX_VISIBLE = 6;
+const visibleUpcoming = otherUpcoming.slice(0, MAX_VISIBLE);
+const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
 ---
 
 <Layout title="Events - UW Economics Society">
   <Nav />
-  <main>
+  <main class="section-light">
     <section class="events-page">
       <div class="events-page-inner">
-        <h1 class="page-title">Events</h1>
+        <h1 class="page-title">Upcoming Events</h1>
         <p class="page-subtitle">Talks, workshops, and socials hosted by UWES</p>
 
-        <div class="events-group">
-          <h2 class="group-title">Upcoming</h2>
-          <ul class="event-list">
-            {upcomingEvents.map((event) => (
-              <li class="event-item">
-                <p class="event-date">{event.date}</p>
-                <h3 class="event-title"><a href="#">{event.title}</a></h3>
-                <p class="event-location">{event.location}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div class="events-layout">
+          <div class="featured-event">
+            <div class="featured-flyer"></div>
+            <p class="event-date">{featuredEvent.date}</p>
+            <h2 class="featured-title">{featuredEvent.title}</h2>
+            <p class="featured-location">{featuredEvent.location}</p>
+            {featuredEvent.description && (
+              <p class="featured-description">{featuredEvent.description}</p>
+            )}
+          </div>
 
-        <div class="events-group">
-          <h2 class="group-title">Past</h2>
-          <ul class="event-list">
-            {pastEvents.map((event) => (
-              <li class="event-item">
-                <p class="event-date">{event.date}</p>
-                <h3 class="event-title"><a href="#">{event.title}</a></h3>
-                <p class="event-location">{event.location}</p>
-              </li>
-            ))}
-          </ul>
+          <div class="events-side">
+            <div class="side-block">
+              <h3 class="side-block-title">More Upcoming Events</h3>
+              {otherUpcoming.length === 0 ? (
+                <p class="empty-state">No additional events scheduled — check back soon.</p>
+              ) : (
+                <>
+                  <ul class="event-list">
+                    {visibleUpcoming.map((event) => (
+                      <li class="event-item">
+                        <p class="event-date">{event.date}</p>
+                        <h4 class="event-title"><a href="#">{event.title}</a></h4>
+                        <p class="event-location">{event.location}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  {hasMoreUpcoming && (
+                    <a href="#" class="view-all view-all-inline">View all upcoming events →</a>
+                  )}
+                </>
+              )}
+            </div>
+
+            <div class="side-block">
+              <div class="side-block-header">
+                <h3 class="side-block-title">Past Events</h3>
+                <a href="/events/past/1" class="view-all">View All →</a>
+              </div>
+              <ul class="event-list">
+                {recentPastEvents.map((event) => (
+                  <li class="event-item">
+                    <p class="event-date">{event.date}</p>
+                    <h4 class="event-title"><a href="#">{event.title}</a></h4>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -57,16 +80,18 @@ const pastEvents = [
 <style>
   .events-page {
     padding: 3rem 2rem;
+    background-color: var(--color-bg);
   }
 
   .events-page-inner {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
   .page-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: var(--color-text);
   }
 
   .page-subtitle {
@@ -74,24 +99,81 @@ const pastEvents = [
     margin-bottom: 3rem;
   }
 
-  .events-group {
-    margin-bottom: 3rem;
+  .events-layout {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 3rem;
   }
 
-  .event-title a {
-    color: inherit;
+  /* Featured event (left) */
+  .featured-event {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    padding: 1.5rem;
   }
 
-  .event-title a:hover {
-    color: var(--color-accent-light);
+  .featured-flyer {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: rgba(23, 57, 43, 0.15);
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
   }
 
-  .group-title {
+  .featured-title {
     font-size: 1.5rem;
-    color: var(--color-accent-light);
+    color: var(--color-text);
+    margin: 0.4rem 0 0.3rem;
+  }
+
+  .featured-location {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .featured-description {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* Side blocks (right) */
+  .events-side {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .side-block {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .side-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+  }
+
+  .side-block-title {
+    font-size: 1.25rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .side-block-header .side-block-title {
+    margin-bottom: 0;
+  }
+
+  .view-all {
+    color: var(--color-accent-cream);
+    font-size: 0.85rem;
+    font-weight: 700;
   }
 
   .event-list {
@@ -99,24 +181,49 @@ const pastEvents = [
   }
 
   .event-item {
-    padding: 1.25rem 0;
-    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-card-border);
+  }
+
+  .event-item:last-child {
+    border-bottom: none;
   }
 
   .event-date {
     color: var(--color-accent);
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
   }
 
-  .event-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.3rem;
+  .event-title a {
+    color: var(--color-text);
+    font-size: 1.05rem;
+  }
+
+  .event-title a:hover {
+    color: var(--color-accent-light);
   }
 
   .event-location {
     color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
     font-size: 0.9rem;
+    padding: 1rem 0;
+  }
+
+  .view-all-inline {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .events-layout {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

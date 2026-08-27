@@ -1,0 +1,124 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import { pastEvents } from '../../../data/events.js';
+
+export async function getStaticPaths({ paginate }) {
+  const sorted = [...pastEvents].reverse();
+  return paginate(sorted, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title="Past Events - UW Economics Society">
+  <Nav />
+  <main class="section-light">
+    <section class="past-events-page">
+      <div class="past-events-inner">
+        <div class="page-header">
+          <h1 class="page-title">Past Events</h1>
+          <a href="/events" class="view-all">View Upcoming Events →</a>
+        </div>
+        <p class="page-subtitle">A record of talks, workshops, and socials hosted by UWES</p>
+
+        <ul class="event-list">
+          {page.data.map((event) => (
+            <li class="event-item">
+              <p class="event-date">{event.date}</p>
+              <h3 class="event-title"><a href="#">{event.title}</a></h3>
+            </li>
+          ))}
+        </ul>
+
+        <div class="pagination">
+          {page.url.prev && <a href={page.url.prev} class="page-link">← Newer</a>}
+          <span class="page-indicator">Page {page.currentPage} of {page.lastPage}</span>
+          {page.url.next && <a href={page.url.next} class="page-link">Older →</a>}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .past-events-page {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg);
+  }
+
+  .past-events-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .view-all {
+    color: var(--color-accent-cream);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .event-list {
+    list-style: none;
+  }
+
+  .event-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-card-border);
+  }
+
+  .event-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+
+  .event-title a {
+    color: var(--color-text);
+    font-size: 1.1rem;
+  }
+
+  .event-title a:hover {
+    color: var(--color-accent-light);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+  }
+
+  .page-link {
+    color: var(--color-accent-cream);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .page-indicator {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+</style>

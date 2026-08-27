@@ -52,7 +52,7 @@ const teamGroups = [
 
 <Layout title="Team - UW Economics Society">
   <Nav />
-  <main>
+  <main  class="section-light">
     <section class="team-page">
       <div class="team-page-inner">
         <h1 class="page-title">Meet the Team</h1>
@@ -81,6 +81,7 @@ const teamGroups = [
 <style>
   .team-page {
     padding: 3rem 2rem;
+    background-color: var(--color-bg);
   }
 
   .team-page-inner {
@@ -91,6 +92,7 @@ const teamGroups = [
   .page-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: var(--color-text);
   }
 
   .page-subtitle {
@@ -107,7 +109,7 @@ const teamGroups = [
     color: var(--color-accent-light);
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+        border-bottom: 1px solid var(--color-card-border);
   }
 
   .team-grid {
@@ -134,6 +136,7 @@ const teamGroups = [
   .team-name {
     font-size: 1rem;
     margin-bottom: 0.3rem;
+    color: var(--color-text);
   }
 
   .team-role {
