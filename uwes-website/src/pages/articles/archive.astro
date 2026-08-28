@@ -1,0 +1,154 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { researchArticles, groupByTerm } from '../../data/articles.js';
+
+const grouped = groupByTerm(researchArticles);
+const termOrder = Object.keys(grouped).sort((a, b) => {
+  const [, yearA] = a.split(' ');
+  const [, yearB] = b.split(' ');
+  if (yearA !== yearB) return yearB - yearA;
+  const seasonOrder = { Fall: 3, Spring: 2, Winter: 1 };
+  const seasonA = a.split(' ')[0];
+  const seasonB = b.split(' ')[0];
+  return seasonOrder[seasonB] - seasonOrder[seasonA];
+});
+---
+
+<Layout title="Articles Archive - UW Economics Society">
+  <Nav />
+  <main class="section-light">
+    <section class="archive-page">
+      <div class="archive-page-inner">
+        <div class="page-header">
+          <h1 class="page-title">Articles Archive</h1>
+          <a href="/articles" class="view-all">Back to Articles →</a>
+        </div>
+        <p class="page-subtitle">Browse past research articles by term</p>
+
+        {termOrder.map((term, index) => (
+          <details class="term-group" open={index === 0}>
+            <summary class="term-header">
+              {term}
+              <span class="term-count">({grouped[term].length})</span>
+            </summary>
+            <ul class="article-list">
+              {grouped[term].map((article) => (
+                <li class="article-item">
+                  <p class="article-date">{article.date}</p>
+                  <h3 class="article-title"><a href="#">{article.title}</a></h3>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .archive-page {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg);
+  }
+
+  .archive-page-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .view-all {
+    color: var(--color-accent-cream);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .term-group {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .term-header {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .term-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .term-header::before {
+    content: '▸';
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+  }
+
+  .term-group[open] .term-header::before {
+    transform: rotate(90deg);
+  }
+
+  .term-count {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .article-list {
+    list-style: none;
+    padding: 0 1.5rem 1rem;
+  }
+
+  .article-item {
+    padding: 1rem 0;
+    border-top: 1px solid var(--color-card-border);
+  }
+
+  .article-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .article-title a {
+    color: var(--color-text);
+    font-size: 1.05rem;
+  }
+
+  .article-title a:hover {
+    color: var(--color-accent-light);
+  }
+</style>
