@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="About - UW Economics Society">
+  <Nav />
+  <main class="section-light">
+    <section class="about-page">
+      <div class="about-page-inner">
+        <h1 class="page-title">About Us</h1>
+        <p class="page-subtitle">Who we are and what we do</p>
+
+        <div class="about-content">
+          <p>
+            The University of Waterloo Economics Society (UWES) is a student-run
+            society dedicated to economics, global markets, and policy analysis.
+            [Placeholder — replace with real content from co-presidents.]
+          </p>
+          <p>
+            Founded in 1991, UWES has grown into a community of students passionate
+            about understanding how economic forces shape the world around us.
+            [Placeholder — replace with real content.]
+          </p>
+          <p>
+            Through research, publications, and community events, we aim to
+            [Placeholder — mission statement goes here.]
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .about-page {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg);
+  }
+
+  .about-page-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .page-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about-content p {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+</style>

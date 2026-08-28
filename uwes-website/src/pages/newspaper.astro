@@ -2,14 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { newsletterIssues } from '../data/newsletter.js';
 
-const issues = [
-  { title: "Tariffs and the New Trade Order", date: "Aug 10, 2026", author: "Research Team" },
-  { title: "Inside the Bank of Canada's Rate Decision", date: "Aug 3, 2026", author: "Research Team" },
-  { title: "Tech Layoffs: A Labor Market Signal?", date: "Jul 27, 2026", author: "Research Team" },
-  { title: "Housing Affordability: A Waterloo Case Study", date: "Jul 20, 2026", author: "Research Team" },
-  { title: "The Rise of Private Credit Markets", date: "Jul 13, 2026", author: "Research Team" },
-];
+const [featuredIssue, ...otherIssues] = newsletterIssues;
+const MAX_VISIBLE = 6;
+const visibleIssues = otherIssues.slice(0, MAX_VISIBLE);
+const hasMoreIssues = otherIssues.length > MAX_VISIBLE;
 ---
 
 <Layout title="Newsletter - UW Economics Society">
@@ -17,18 +15,44 @@ const issues = [
   <main class="section-light">
     <section class="newspaper-page">
       <div class="newspaper-page-inner">
-        <h1 class="page-title">Weekly Newsletter</h1>
-          <p class="page-subtitle">Weekly commentary from the UWES research team</p>
+        <h1 class="page-title">Newsletter</h1>
+        <p class="page-subtitle">Weekly commentary from the UWES research team</p>
 
-        <ul class="issue-list">
-          {issues.map((issue) => (
-            <li class="issue-item">
-              <p class="issue-date">{issue.date}</p>
-              <h3 class="issue-title"><a href="#">{issue.title}</a></h3>
-              <p class="issue-author">{issue.author}</p>
-            </li>
-          ))}
-        </ul>
+        <div class="newspaper-layout">
+          <div class="featured-issue">
+            <div class="featured-flyer"></div>
+            <p class="issue-date">{featuredIssue.date}</p>
+            <h2 class="featured-title"><a href="#">{featuredIssue.title}</a></h2>
+            <p class="featured-author">{featuredIssue.author}</p>
+            <p class="featured-excerpt">{featuredIssue.excerpt}</p>
+            <a href="#" class="read-more">Read Full Issue →</a>
+          </div>
+
+          <div class="side-block">
+            <div class="side-block-header">
+              <h3 class="side-block-title">More Issues</h3>
+              <a href="/newspaper/archive" class="view-all">View All →</a>
+            </div>
+
+            {otherIssues.length === 0 ? (
+              <p class="empty-state">No additional issues yet — check back soon.</p>
+            ) : (
+              <ul class="issue-list">
+                {visibleIssues.map((issue) => (
+                  <li class="issue-item">
+                    <p class="issue-date">{issue.date}</p>
+                    <h4 class="issue-title"><a href="#">{issue.title}</a></h4>
+                    <p class="issue-excerpt">{issue.excerpt}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {hasMoreIssues && (
+              <a href="/newspaper/archive" class="view-all view-all-inline">View all issues →</a>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -42,7 +66,7 @@ const issues = [
   }
 
   .newspaper-page-inner {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -57,34 +81,132 @@ const issues = [
     margin-bottom: 3rem;
   }
 
+  .newspaper-layout {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 3rem;
+  }
+
+  /* Featured issue (left) */
+  .featured-issue {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .featured-flyer {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: rgba(23, 57, 43, 0.15);
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+  }
+
+  .featured-title a {
+    font-size: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .featured-title a:hover {
+    color: var(--color-accent-light);
+  }
+
+  .featured-author {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0.3rem 0 0.75rem;
+  }
+
+  .featured-excerpt {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .read-more {
+    color: var(--color-accent-cream);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* Side block (right) */
+  .side-block {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .side-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .side-block-title {
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+
+  .view-all {
+    color: var(--color-accent-cream);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .view-all-inline {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    padding: 1rem 0;
+  }
+
   .issue-list {
     list-style: none;
   }
 
   .issue-item {
-    padding: 1.25rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--color-card-border);
+  }
+
+  .issue-item:last-child {
+    border-bottom: none;
   }
 
   .issue-date {
     color: var(--color-accent);
     font-size: 0.8rem;
     letter-spacing: 0.05em;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
   }
 
   .issue-title a {
     color: var(--color-text);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 
   .issue-title a:hover {
     color: var(--color-accent-light);
   }
 
-  .issue-author {
+  .issue-excerpt {
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
     margin-top: 0.3rem;
+  }
+
+  @media (max-width: 900px) {
+    .newspaper-layout {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

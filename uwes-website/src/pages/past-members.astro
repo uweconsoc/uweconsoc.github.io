@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Past Members - UW Economics Society">
+  <Nav />
+  <main class="section-light">
+    <section class="placeholder-page">
+      <div class="placeholder-inner">
+        <h1 class="page-title">Past Members</h1>
+        <p class="page-subtitle">Coming soon.</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .placeholder-page {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg);
+    min-height: 40vh;
+  }
+
+  .placeholder-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .page-subtitle {
+    color: var(--color-text-muted);
+  }
+</style>

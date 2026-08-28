@@ -4,8 +4,19 @@
       <img src="/images/logo-icon-white-bg.png" alt="UWES" class="nav-icon" />
       UWES
     </a>
-    <ul class="nav-links">
+        <ul class="nav-links">
       <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <button class="dropdown-trigger" aria-expanded="false">
+          About Us
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="/about">About</a></li>
+          <li><a href="/team">Team</a></li>
+          <li><a href="/past-members">Past Members</a></li>
+        </ul>
+      </li>
       <li class="dropdown">
         <button class="dropdown-trigger" aria-expanded="false">
           Events
@@ -17,9 +28,17 @@
         </ul>
       </li>
       <li><a href="/markets">Markets</a></li>
-      <li><a href="/newspaper">Newsletter</a></li>
+      <li class="dropdown">
+        <button class="dropdown-trigger" aria-expanded="false">
+          Newsletter
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="/newspaper">Latest Issue</a></li>
+          <li><a href="/newspaper/archive">Archive</a></li>
+        </ul>
+      </li>
       <li><a href="/articles">Articles</a></li>
-      <li><a href="/team">Team</a></li>
     </ul>
     <a href="/join" class="join-btn">Join Us</a>
   </div>
@@ -82,7 +101,7 @@
     font-size: 0.9rem;
   }
 
-    .dropdown {
+  .dropdown {
     position: relative;
   }
 
@@ -137,7 +156,7 @@
     display: flex;
   }
 
-  .dropdown-menu li:first-child a {
+  .dropdown-menu li:not(:last-child) a {
     border-bottom: 1px solid var(--color-card-border);
   }
 
