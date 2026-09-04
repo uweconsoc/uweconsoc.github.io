@@ -7,44 +7,53 @@ const teamGroups = [
   {
     name: "Executive",
     members: [
-      { name: "Ishaan Wason", role: "Co-President" },
-      { name: "Ernest Bakhchinian", role: "Co-President" },
-    ],
-  },
-  {
-    name: "Research Team",
-    members: [
-      { name: "TBD", role: "VP Research" },
-      { name: "Jianing Li", role: "Research Analyst" },
-      { name: "TBD", role: "Research Analyst" },
-    ],
-  },
-  {
-    name: "Marketing Team",
-    members: [
-      { name: "TBD", role: "VP Marketing" },
-      { name: "TBD", role: "Marketing Associate" },
+      { name: "Ishaan Wason", role: "Co-President", major: "ARBUS", photo: "/images/team/avatars/Ishaan_Wason.JPG" },
+      { name: "Ernest Bakhchinian", role: "Co-President", major: "Economics", photo: "/images/team/avatars/Ernest_Bakhchinian.jpg" },
     ],
   },
   {
     name: "Finance Team",
     members: [
-      { name: "TBD", role: "VP Finance" },
-      { name: "TBD", role: "Finance Associate" },
+      { name: "Mateo Racco", role: "VP Finance", major: "ARBUS in Economics", photo: "/images/team/avatars/Mateo_Racco.jpeg" },
+      { name: "Mark Ghazi", role: "Finance Coordinator", major: "Master of Arts in Economics", photo: "/images/team/avatars/Mark_Ghazi.jpeg" },
+      { name: "Andrew Ferrara", role: "Finance Coordinator", major: "Economics and Business", photo: "/images/team/avatars/Andrew_Ferrara.jpeg" },
     ],
   },
   {
     name: "Event Team",
     members: [
-      { name: "TBD", role: "VP Events" },
-      { name: "TBD", role: "Events Associate" },
+      { name: "Amogh Mani Murugan", role: "VP of Events", major: "Economics", photo: "/images/team/avatars/Amogh_Murugan.jpeg" },
+      { name: "Maurya Shah", role: "Events Coordinator", major: "Science and Business", photo: "/images/team/avatars/Maurya_Shah.jpg" },
+      { name: "Yumna Naleem", role: "Events Coordinator", major: "Economics", photo: "/images/team/avatars/Yumna_Naleem.jpeg" },
+      { name: "Charan Kalyana Sundaram", role: "Events Coordinator", major: "Accounting and Financial Management", photo: "/images/team/avatars/Charan_KS.png" },
+    ],
+  },
+  {
+    name: "Research Team",
+    members: [
+      { name: "Tulika Sharma", role: "VP Research", major: "Economics and Business", photo: "/images/team/avatars/Tulika_Sharma.jpg" },
+      { name: "Charlotte Grieco", role: "Research Analyst", major: "Math/FARM", photo: "/images/team/avatars/Charlotte_Grieco.jpeg" },
+      { name: "Fadekemi Odu-Onikosi", role: "Research Writer", major: "Mathematical Economics", photo: "/images/team/avatars/Fadekemi_Odu-Onikosi.JPG" },
+      { name: "Jianing Li", role: "Research Analyst", major: "Master of Arts in Economics", photo: "/images/team/avatars/Jianing_Li.jpeg" },
+    ],
+  },
+  {
+    name: "Communications Team",
+    members: [
+      { name: "Isabel Chelaidite", role: "VP Communications", major: "Economics and Business", photo: "/images/team/avatars/Isabel_Chelaidite.jpeg" },
+    ],
+  },
+  {
+    name: "Marketing Team",
+    members: [
+      { name: "TBD", role: "VP Marketing", major: "" },
     ],
   },
   {
     name: "Web Dev Team",
     members: [
-      { name: "Jianing Li", role: "Web Developer" },
-      { name: "Sargun Bhatti", role: "Web Developer"},
+      { name: "Jianing Li", role: "Web Developer", major: "Master of Arts in Economics", photo: "/images/team/avatars/Jianing_Li.jpeg" },
+      { name: "Sargun Singh Bhatti", role: "Software Developer", major: "Computer Science", photo: "/images/team/avatars/Sargun_Bhatti.jpg" },
     ],
   },
 ];
@@ -64,9 +73,14 @@ const teamGroups = [
             <div class="team-grid">
               {group.members.map((person) => (
                 <div class="team-card">
-                  <div class="team-photo-placeholder"></div>
+                  {person.photo ? (
+                    <img src={person.photo} alt={person.name} class="team-photo" />
+                  ) : (
+                    <div class="team-photo-placeholder"></div>
+                  )}
                   <h3 class="team-name">{person.name}</h3>
                   <p class="team-role">{person.role}</p>
+                  {person.major && <p class="team-major">{person.major}</p>}
                 </div>
               ))}
             </div>
@@ -114,8 +128,8 @@ const teamGroups = [
 
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.75rem;
   }
 
   .team-card {
@@ -125,22 +139,42 @@ const teamGroups = [
     text-align: center;
   }
 
-  .team-photo-placeholder {
-    width: 80px;
-    height: 80px;
+  .team-photo-placeholder,
+  .team-photo {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background-color: rgba(232, 146, 42, 0.15);
     margin: 0 auto 1rem;
+  }
+
+  .team-photo-placeholder {
+    background-color: rgba(232, 146, 42, 0.15);
+  }
+
+  .team-photo {
+    object-fit: cover;
+    display: block;
   }
 
   .team-name {
     font-size: 1rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.35rem;
     color: var(--color-text);
+    line-height: 1.3;
   }
 
   .team-role {
     color: var(--color-text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+  }
+
+  .team-major {
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+    font-style: italic;
+    line-height: 1.4;
+    margin-top: 0.15rem;
   }
 </style>
