@@ -2,17 +2,15 @@
 
 All updatable content — articles, newsletter issues, and events — lives as markdown files with frontmatter under `src/content/`. This is the one folder to touch when adding or editing any of it; no `.astro`/`.js` code needs to change. Listing pages, archive pages, and (for articles/newsletter) each entry's own page pick up any file automatically.
 
-## Articles or newsletter issues
+## Newsletter issues
 
-1. Take the member's write-up (from a doc, etc.) and pick a short, URL-safe slug for it, e.g. `my-article-title`.
-2. Create a new file:
-   - Article → `src/content/articles/my-article-title.md`
-   - Newsletter issue → `src/content/newsletter/my-article-title.md`
+1. Take the member's write-up (from a doc, etc.) and pick a short, URL-safe slug for it, e.g. `my-issue-title`.
+2. Create `src/content/newsletter/my-issue-title.md`.
 3. Paste this frontmatter block at the top, then the body underneath in plain markdown (`##` headings, paragraphs, links, lists):
 
 ```md
 ---
-title: "Article Title Here"
+title: "Issue Title Here"
 date: 2026-08-12
 author: "Research Team"
 excerpt: "One or two sentence summary shown on the listing page."
@@ -21,7 +19,7 @@ excerpt: "One or two sentence summary shown on the listing page."
 Full body goes here, written in plain markdown.
 ```
 
-4. Optional cover image: drop the image file under `src/assets/`, import it at the top of the relevant `[slug].astro` page — or, simpler, add a `cover:` field once an image is available and wired up per the schema in `src/content.config.ts`.
+4. Optional cover image: drop the image file under `src/content/newsletter/` alongside the markdown file, then add `cover: ./my-cover.jpg` to the frontmatter (pages fall back to a placeholder block when omitted).
 5. Commit and push — the site rebuilds automatically via the existing GitHub Actions workflow.
 
 ### Field reference
@@ -34,6 +32,37 @@ Full body goes here, written in plain markdown.
 | `excerpt` | yes | One or two sentences shown on the listing/archive cards. |
 | `cover` | no | Path to a cover image (optional — pages fall back to a placeholder block when omitted). |
 | `coverAlt` | no | Alt text for the cover image. |
+
+## Articles
+
+Research articles are published from the original PDF directly — no manual transcription into markdown, and no manual cover image needed.
+
+1. Pick a short, URL-safe slug for it, e.g. `my-article-title`.
+2. Drop the PDF at `public/articles/my-article-title.pdf` — the filename (minus `.pdf`) must exactly match the slug from step 3.
+3. Create `src/content/articles/my-article-title.md` with frontmatter only (no body needed):
+
+```md
+---
+title: "Article Title Here"
+date: 2026-08-12
+author: "Research Team"
+excerpt: "One or two sentence summary shown on the listing page."
+---
+```
+
+4. Commit and push. On the next build, the article's cover thumbnail is automatically generated from page 1 of the PDF (see `src/lib/generate-article-covers.mjs`), and the article's page embeds the full PDF with a download-link fallback — nothing else to wire up.
+
+### Field reference
+
+| Field | Required | Notes |
+|---|---|---|
+| `title` | yes | Plain text, shown as the page heading. |
+| `date` | yes | ISO format `YYYY-MM-DD`. Determines sort order and which term ("Winter/Spring/Fall YYYY") it's grouped under in the archive. |
+| `author` | no | Defaults to `"Research Team"`. |
+| `excerpt` | yes | One or two sentences shown on the listing/archive cards. |
+| `coverAlt` | no | Alt text for the auto-generated cover image. |
+
+There's no `pdf` or `cover` field — the PDF at `public/articles/<slug>.pdf` and the auto-generated cover are both found by matching the slug, not by frontmatter.
 
 ## Events
 

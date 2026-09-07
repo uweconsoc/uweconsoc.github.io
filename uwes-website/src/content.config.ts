@@ -1,5 +1,7 @@
-import { defineCollection, z, type SchemaContext } from 'astro:content';
+import { z } from 'astro/zod';
+import { defineCollection, type SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
+import type { astro } from 'astro/hono';
 
 const contentEntrySchema = ({ image }: SchemaContext) =>
   z.object({
@@ -11,9 +13,17 @@ const contentEntrySchema = ({ image }: SchemaContext) =>
     coverAlt: z.string().optional(),
   });
 
+const articleSchema = z.object({
+  title: z.string(),
+  date: z.coerce.date(),
+  author: z.string().default('Research Team'),
+  excerpt: z.string(),
+  coverAlt: z.string().optional(),
+});
+
 const articles = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
-  schema: contentEntrySchema,
+  schema: articleSchema,
 });
 
 const newsletter = defineCollection({

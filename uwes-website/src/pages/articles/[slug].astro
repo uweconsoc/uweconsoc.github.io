@@ -1,11 +1,12 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import { formatDate } from '../../data/terms.ts';
+import { resolveArticleCover } from '../../data/articleCovers.js';
 
 export async function getStaticPaths() {
   const entries: CollectionEntry<'articles'>[] = await getCollection('articles');
@@ -20,7 +21,7 @@ type Props = {
 };
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const cover = resolveArticleCover(entry.id);
 ---
 
 <Layout title={`${entry.data.title} - UW Economics Society`}>
@@ -32,14 +33,17 @@ const { Content } = await render(entry);
           <a href="/articles" class="view-all-header">← Back to Articles</a>
         </div>
         <article class="card article-detail-card">
-          {entry.data.cover && (
-            <Image src={entry.data.cover} alt={entry.data.coverAlt ?? ''} format="webp" loading="eager" fetchpriority="high" class="article-detail-cover" />
+          {cover && (
+            <Image src={cover} alt={entry.data.coverAlt ?? ''} format="webp" loading="eager" fetchpriority="high" class="article-detail-cover" />
           )}
           <p class="article-date">{formatDate(entry.data.date)}</p>
           <h1 class="page-title">{entry.data.title}</h1>
           <p class="featured-author">{entry.data.author}</p>
-          <div class="article-body">
-            <Content />
+          <div class="pdf-viewer-wrap">
+            <embed src={`/articles/${entry.id}.pdf`} type="application/pdf" class="pdf-viewer" />
+            <p class="pdf-fallback">
+              Trouble viewing the PDF above? <a href={`/articles/${entry.id}.pdf`} download>Download it here</a>.
+            </p>
           </div>
         </article>
       </div>
@@ -55,7 +59,7 @@ const { Content } = await render(entry);
   }
 
   .article-detail-inner {
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
@@ -69,8 +73,10 @@ const { Content } = await render(entry);
 
   .article-detail-cover {
     width: 100%;
+    max-width: 280px;
+    display: block;
+    margin: 0 auto 1.5rem;
     border-radius: 8px;
-    margin-bottom: 1.5rem;
   }
 
   .article-date {
@@ -86,27 +92,26 @@ const { Content } = await render(entry);
     margin: 0.3rem 0 1.5rem;
   }
 
-  .article-body {
-    color: var(--color-text);
-    line-height: 1.8;
+  .pdf-viewer-wrap {
+    margin-top: 0.5rem;
   }
 
-  .article-body :global(h2),
-  .article-body :global(h3) {
-    margin: 1.75rem 0 0.75rem;
+  .pdf-viewer {
+    width: 100%;
+    height: 80vh;
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
   }
 
-  .article-body :global(p) {
-    margin-bottom: 1rem;
+  .pdf-fallback {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    text-align: center;
   }
 
-  .article-body :global(a) {
+  .pdf-fallback a {
     color: var(--color-accent-cream);
     text-decoration: underline;
-  }
-
-  .article-body :global(ul),
-  .article-body :global(ol) {
-    margin: 0 0 1rem 1.5rem;
   }
 </style>
