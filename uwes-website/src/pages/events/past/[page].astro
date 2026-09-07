@@ -19,7 +19,7 @@ const { page } = Astro.props;
       <div class="past-events-inner">
         <div class="page-header">
           <h1 class="page-title">Past Events</h1>
-          <a href="/events" class="view-all">View Upcoming Events →</a>
+          <a href="/events" class="view-all-header">View Upcoming Events →</a>
         </div>
         <p class="page-subtitle">A record of talks, workshops, and socials hosted by UWES</p>
 
@@ -54,28 +54,7 @@ const { page } = Astro.props;
     margin: 0 auto;
   }
 
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
-  }
-
-  .view-all {
-    color: var(--color-accent-cream);
-    font-size: 0.9rem;
-    font-weight: 700;
-  }
-
   .page-subtitle {
-    color: var(--color-text-muted);
     margin-bottom: 2.5rem;
   }
 

@@ -22,7 +22,7 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
         <p class="page-subtitle">Talks, workshops, and socials hosted by UWES</p>
 
         <div class="events-layout">
-          <div class="featured-event">
+          <div class="featured-event panel">
             <div class="featured-flyer"></div>
             <p class="event-date">{featuredEvent.date}</p>
             <h2 class="featured-title">{featuredEvent.title}</h2>
@@ -33,7 +33,7 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
           </div>
 
           <div class="events-side">
-            <div class="side-block">
+            <div class="side-block panel">
               <h3 class="side-block-title">More Upcoming Events</h3>
               {otherUpcoming.length === 0 ? (
                 <p class="empty-state">No additional events scheduled — check back soon.</p>
@@ -49,16 +49,16 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
                     ))}
                   </ul>
                   {hasMoreUpcoming && (
-                    <a href="#" class="view-all view-all-inline">View all upcoming events →</a>
+                    <a href="#" class="view-all-page view-all-inline">View all upcoming events →</a>
                   )}
                 </>
               )}
             </div>
 
-            <div class="side-block">
+            <div class="side-block panel">
               <div class="side-block-header">
                 <h3 class="side-block-title">Past Events</h3>
-                <a href="/events/past/1" class="view-all">View All →</a>
+                <a href="/events/past/1" class="view-all-page">View All →</a>
               </div>
               <ul class="event-list">
                 {recentPastEvents.map((event) => (
@@ -88,14 +88,7 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
     margin: 0 auto;
   }
 
-  .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
-  }
-
   .page-subtitle {
-    color: var(--color-text-muted);
     margin-bottom: 3rem;
   }
 
@@ -103,14 +96,6 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
     display: grid;
     grid-template-columns: 2fr 3fr;
     gap: 3rem;
-  }
-
-  /* Featured event (left) */
-  .featured-event {
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-card-border);
-    border-radius: 10px;
-    padding: 1.5rem;
   }
 
   .featured-flyer {
@@ -146,31 +131,7 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
     gap: 2.5rem;
   }
 
-  .side-block {
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-card-border);
-    border-radius: 10px;
-    padding: 1.5rem;
-  }
-
-  .side-block-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
-  }
-
-  .side-block-title {
-    font-size: 1.25rem;
-    color: var(--color-text);
-    margin-bottom: 1rem;
-  }
-
-  .side-block-header .side-block-title {
-    margin-bottom: 0;
-  }
-
-  .view-all {
+  .view-all-page {
     color: var(--color-accent-cream);
     font-size: 0.85rem;
     font-weight: 700;

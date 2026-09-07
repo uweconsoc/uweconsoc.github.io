@@ -1,216 +1,223 @@
+---
+import { Image } from "astro:assets";
+import logoIcon from "../assets/logo-icon-white-bg.png";
+---
+
 <nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-brand">
-      <img src="/images/logo-icon-white-bg.png" alt="UWES" class="nav-icon" />
-      UWES
-    </a>
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <Image src={logoIcon} alt="UWES" class="nav-icon" loading="eager" fetchpriority="high" />
+            UWES
+        </a>
         <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li class="dropdown">
-        <button class="dropdown-trigger" aria-expanded="false">
-          About Us
-          <span class="dropdown-arrow">▾</span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="/about">About</a></li>
-          <li><a href="/team">Team</a></li>
-          <li><a href="/past-members">Past Members</a></li>
+            <li><a href="/">Home</a></li>
+            <li class="dropdown">
+                <button class="dropdown-trigger" aria-expanded="false">
+                    About Us
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/team">Team</a></li>
+                    <li><a href="/past-members">Past Members</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="dropdown-trigger" aria-expanded="false">
+                    Events
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/events">Upcoming Events</a></li>
+                    <li><a href="/events/past/1">Past Events</a></li>
+                </ul>
+            </li>
+            <li><a href="/markets">Markets</a></li>
+            <li class="dropdown">
+                <button class="dropdown-trigger" aria-expanded="false">
+                    Newsletter
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/newspaper">Latest Issue</a></li>
+                    <li><a href="/newspaper/archive">Archive</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="dropdown-trigger" aria-expanded="false">
+                    Articles
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/articles">Latest Article</a></li>
+                    <li><a href="/articles/archive">Archive</a></li>
+                </ul>
+            </li>
         </ul>
-      </li>
-      <li class="dropdown">
-        <button class="dropdown-trigger" aria-expanded="false">
-          Events
-          <span class="dropdown-arrow">▾</span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="/events">Upcoming Events</a></li>
-          <li><a href="/events/past/1">Past Events</a></li>
-        </ul>
-      </li>
-      <li><a href="/markets">Markets</a></li>
-      <li class="dropdown">
-        <button class="dropdown-trigger" aria-expanded="false">
-          Newsletter
-          <span class="dropdown-arrow">▾</span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="/newspaper">Latest Issue</a></li>
-          <li><a href="/newspaper/archive">Archive</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <button class="dropdown-trigger" aria-expanded="false">
-          Articles
-          <span class="dropdown-arrow">▾</span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="/articles">Latest Article</a></li>
-          <li><a href="/articles/archive">Archive</a></li>
-        </ul>
-      </li>
-    </ul>
-    <a href="/join" class="join-btn">Join Us</a>
-  </div>
+        <a href="/join" class="join-btn">Join Us</a>
+    </div>
 </nav>
 
 <style>
-  .nav {
-    background-color: var(--color-bg);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.25rem 2rem;
-  }
+    .nav {
+        background-color: var(--color-bg);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1.25rem 2rem;
+    }
 
-  .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .nav-brand {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-text);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .nav-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-  }
-
-  .nav-links a {
-    color: var(--color-text);
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--color-accent);
-  }
-
-  .join-btn {
-    background-color: var(--color-accent-cream);
-    color: var(--color-bg);
-    padding: 0.6rem 1.25rem;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-
-  .dropdown-trigger {
-    background: none;
-    border: none;
-    outline: none;
-    color: var(--color-text);
-    font-size: 0.95rem;
-    font-family: inherit;
-    font-weight: inherit;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0;
-    margin: 0;
-    line-height: normal;
-    vertical-align: baseline;
-  }
-
-  .dropdown-trigger:hover {
-    color: var(--color-accent);
-  }
-
-  .dropdown-arrow {
-    font-size: 0.7rem;
-    transition: transform 0.2s ease;
-  }
-
-  .dropdown[data-open="true"] .dropdown-arrow {
-    transform: rotate(180deg);
-  }
-
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 0.75rem;
-    background-color: #234a38;
-    border: 1px solid var(--color-card-border);
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    min-width: 180px;
-    list-style: none;
-    display: none;
-    flex-direction: column;
-    z-index: 10;
-  }
-
-  .dropdown[data-open="true"] .dropdown-menu {
-    display: flex;
-  }
-
-  .dropdown-menu li:not(:last-child) a {
-    border-bottom: 1px solid var(--color-card-border);
-  }
-
-  .dropdown-menu li a {
-    display: block;
-    padding: 0.6rem 1rem;
-    color: var(--color-text);
-    font-size: 0.9rem;
-  }
-
-  .dropdown-menu li a:hover {
-    color: var(--color-accent);
-    background-color: var(--color-card-bg);
-  }
-
-  /* 手机端:菜单先简单堆叠,后面可以再做汉堡菜单 */
-  @media (max-width: 768px) {
     .nav-inner {
-      flex-direction: column;
-      gap: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .nav-brand {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
     }
 
     .nav-links {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+        list-style: none;
+        display: flex;
+        gap: 2rem;
     }
-  }
+
+    .nav-links a {
+        color: var(--color-text);
+        font-size: 0.95rem;
+        transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+        color: var(--color-accent);
+    }
+
+    .join-btn {
+        background-color: var(--color-accent-cream);
+        color: var(--color-bg);
+        padding: 0.6rem 1.25rem;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-trigger {
+        background: none;
+        border: none;
+        outline: none;
+        color: var(--color-text);
+        font-size: 0.95rem;
+        font-family: inherit;
+        font-weight: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        margin: 0;
+        line-height: normal;
+        vertical-align: baseline;
+    }
+
+    .dropdown-trigger:hover {
+        color: var(--color-accent);
+    }
+
+    .dropdown-arrow {
+        font-size: 0.7rem;
+        transition: transform 0.2s ease;
+    }
+
+    .dropdown[data-open="true"] .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0.75rem;
+        background-color: #234a38;
+        border: 1px solid var(--color-card-border);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+        min-width: 180px;
+        list-style: none;
+        display: none;
+        flex-direction: column;
+        z-index: 10;
+    }
+
+    .dropdown[data-open="true"] .dropdown-menu {
+        display: flex;
+    }
+
+    .dropdown-menu li:not(:last-child) a {
+        border-bottom: 1px solid var(--color-card-border);
+    }
+
+    .dropdown-menu li a {
+        display: block;
+        padding: 0.6rem 1rem;
+        color: var(--color-text);
+        font-size: 0.9rem;
+    }
+
+    .dropdown-menu li a:hover {
+        color: var(--color-accent);
+        background-color: var(--color-card-bg);
+    }
+
+    /* 手机端:菜单先简单堆叠,后面可以再做汉堡菜单 */
+    @media (max-width: 768px) {
+        .nav-inner {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+    }
 </style>
 
 <script>
-  document.querySelectorAll('.dropdown-trigger').forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-      const dropdown = trigger.closest('.dropdown');
-      const isOpen = dropdown.getAttribute('data-open') === 'true';
-      dropdown.setAttribute('data-open', isOpen ? 'false' : 'true');
-      trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    document.querySelectorAll(".dropdown-trigger").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+            const dropdown = trigger.closest(".dropdown");
+            const isOpen = dropdown.getAttribute("data-open") === "true";
+            dropdown.setAttribute("data-open", isOpen ? "false" : "true");
+            trigger.setAttribute("aria-expanded", isOpen ? "false" : "true");
+        });
     });
-  });
 
-  document.addEventListener('click', (e) => {
-    document.querySelectorAll('.dropdown[data-open="true"]').forEach((dropdown) => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.setAttribute('data-open', 'false');
-      }
+    document.addEventListener("click", (e) => {
+        document
+            .querySelectorAll('.dropdown[data-open="true"]')
+            .forEach((dropdown) => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.setAttribute("data-open", "false");
+                }
+            });
     });
-  });
 </script>

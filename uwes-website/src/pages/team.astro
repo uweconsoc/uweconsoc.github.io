@@ -1,62 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-
-const teamGroups = [
-  {
-    name: "Executive",
-    members: [
-      { name: "Ishaan Wason", role: "Co-President", major: "ARBUS", photo: "/images/team/avatars/Ishaan_Wason.JPG" },
-      { name: "Ernest Bakhchinian", role: "Co-President", major: "Economics", photo: "/images/team/avatars/Ernest_Bakhchinian.jpg" },
-    ],
-  },
-  {
-    name: "Finance Team",
-    members: [
-      { name: "Mateo Racco", role: "VP Finance", major: "ARBUS in Economics", photo: "/images/team/avatars/Mateo_Racco.jpeg" },
-      { name: "Mark Ghazi", role: "Finance Coordinator", major: "Master of Arts in Economics", photo: "/images/team/avatars/Mark_Ghazi.jpeg" },
-      { name: "Andrew Ferrara", role: "Finance Coordinator", major: "Economics and Business", photo: "/images/team/avatars/Andrew_Ferrara.jpeg" },
-    ],
-  },
-  {
-    name: "Event Team",
-    members: [
-      { name: "Amogh Mani Murugan", role: "VP of Events", major: "Economics", photo: "/images/team/avatars/Amogh_Murugan.jpeg" },
-      { name: "Maurya Shah", role: "Events Coordinator", major: "Science and Business", photo: "/images/team/avatars/Maurya_Shah.jpg" },
-      { name: "Yumna Naleem", role: "Events Coordinator", major: "Economics", photo: "/images/team/avatars/Yumna_Naleem.jpeg" },
-      { name: "Charan Kalyana Sundaram", role: "Events Coordinator", major: "Accounting and Financial Management", photo: "/images/team/avatars/Charan_KS.png" },
-    ],
-  },
-  {
-    name: "Research Team",
-    members: [
-      { name: "Tulika Sharma", role: "VP Research", major: "Economics and Business", photo: "/images/team/avatars/Tulika_Sharma.jpg" },
-      { name: "Charlotte Grieco", role: "Research Analyst", major: "Math/FARM", photo: "/images/team/avatars/Charlotte_Grieco.jpeg" },
-      { name: "Fadekemi Odu-Onikosi", role: "Research Writer", major: "Mathematical Economics", photo: "/images/team/avatars/Fadekemi_Odu-Onikosi.JPG" },
-      { name: "Jianing Li", role: "Research Analyst", major: "Master of Arts in Economics", photo: "/images/team/avatars/Jianing_Li.jpeg" },
-    ],
-  },
-  {
-    name: "Communications Team",
-    members: [
-      { name: "Isabel Chelaidite", role: "VP Communications", major: "Economics and Business", photo: "/images/team/avatars/Isabel_Chelaidite.jpeg" },
-    ],
-  },
-  {
-    name: "Marketing Team",
-    members: [
-      { name: "TBD", role: "VP Marketing", major: "" },
-    ],
-  },
-  {
-    name: "Web Dev Team",
-    members: [
-      { name: "Jianing Li", role: "Web Developer", major: "Master of Arts in Economics", photo: "/images/team/avatars/Jianing_Li.jpeg" },
-      { name: "Sargun Singh Bhatti", role: "Software Developer", major: "Computer Science", photo: "/images/team/avatars/Sargun_Bhatti.jpg" },
-    ],
-  },
-];
+import { teamGroups, resolvePhoto } from '../data/team.js';
 ---
 
 <Layout title="Team - UW Economics Society">
@@ -74,7 +21,7 @@ const teamGroups = [
               {group.members.map((person) => (
                 <div class="team-card">
                   {person.photo ? (
-                    <img src={person.photo} alt={person.name} class="team-photo" />
+                    <Image src={resolvePhoto(person.photo)} alt={person.name} class="team-photo" />
                   ) : (
                     <div class="team-photo-placeholder"></div>
                   )}
@@ -103,14 +50,7 @@ const teamGroups = [
     margin: 0 auto;
   }
 
-  .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
-  }
-
   .page-subtitle {
-    color: var(--color-text-muted);
     margin-bottom: 3rem;
   }
 
@@ -132,28 +72,16 @@ const teamGroups = [
     gap: 1.75rem;
   }
 
-  .team-card {
-    background-color: var(--color-card-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-  }
-
   .team-photo-placeholder,
   .team-photo {
     width: 120px;
     height: 120px;
-    border-radius: 50%;
-    margin: 0 auto 1rem;
   }
 
   .team-photo-placeholder {
+    border-radius: 50%;
+    margin: 0 auto 1rem;
     background-color: rgba(232, 146, 42, 0.15);
-  }
-
-  .team-photo {
-    object-fit: cover;
-    display: block;
   }
 
   .team-name {
