@@ -28,7 +28,7 @@ const hasMoreArticles = otherArticles.length > MAX_VISIBLE;
         <div class="articles-layout">
           <div class="featured-article panel">
             {featuredArticle.data.cover ? (
-              <Image src={featuredArticle.data.cover} alt={featuredArticle.data.coverAlt ?? ''} class="featured-flyer" />
+              <Image src={featuredArticle.data.cover} alt={featuredArticle.data.coverAlt ?? ''} format="webp" loading="eager" fetchpriority="high" class="featured-flyer" />
             ) : (
               <div class="featured-flyer"></div>
             )}
