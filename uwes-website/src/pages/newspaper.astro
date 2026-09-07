@@ -28,7 +28,7 @@ const hasMoreIssues = otherIssues.length > MAX_VISIBLE;
         <div class="newspaper-layout">
           <div class="featured-issue panel">
             {featuredIssue.data.cover ? (
-              <Image src={featuredIssue.data.cover} alt={featuredIssue.data.coverAlt ?? ''} class="featured-flyer" />
+              <Image src={featuredIssue.data.cover} alt={featuredIssue.data.coverAlt ?? ''} format="webp" loading="eager" fetchpriority="high" class="featured-flyer" />
             ) : (
               <div class="featured-flyer"></div>
             )}

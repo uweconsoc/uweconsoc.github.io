@@ -33,7 +33,7 @@ const { Content } = await render(entry);
         </div>
         <article class="card article-detail-card">
           {entry.data.cover && (
-            <Image src={entry.data.cover} alt={entry.data.coverAlt ?? ''} class="article-detail-cover" />
+            <Image src={entry.data.cover} alt={entry.data.coverAlt ?? ''} format="webp" loading="eager" fetchpriority="high" class="article-detail-cover" />
           )}
           <p class="article-date">{formatDate(entry.data.date)}</p>
           <h1 class="page-title">{entry.data.title}</h1>
