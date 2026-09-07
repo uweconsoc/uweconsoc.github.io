@@ -18,6 +18,8 @@ import { featuredMembers, resolvePhoto } from '../data/team.js';
                             src={resolvePhoto(person.photo)}
                             alt={person.name}
                             class="team-photo"
+                            width={200}
+                            format="webp"
                         />
                         <h3 class="team-name">{person.name}</h3>
                         <p class="team-role">{person.role}</p>

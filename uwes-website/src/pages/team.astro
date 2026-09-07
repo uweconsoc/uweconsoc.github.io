@@ -21,7 +21,7 @@ import { teamGroups, resolvePhoto } from '../data/team.js';
               {group.members.map((person) => (
                 <div class="team-card">
                   {person.photo ? (
-                    <Image src={resolvePhoto(person.photo)} alt={person.name} class="team-photo" />
+                    <Image src={resolvePhoto(person.photo)} alt={person.name} class="team-photo" width={240} format="webp" />
                   ) : (
                     <div class="team-photo-placeholder"></div>
                   )}
