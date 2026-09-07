@@ -1,9 +1,10 @@
 ---
-const issues = [
-  { title: "Tariffs and the New Trade Order", date: "Aug 10, 2026", author: "Research Team" },
-  { title: "Inside the Bank of Canada's Rate Decision", date: "Aug 3, 2026", author: "Research Team" },
-  { title: "Tech Layoffs: A Labor Market Signal?", date: "Jul 27, 2026", author: "Research Team" },
-];
+import { getCollection } from 'astro:content';
+import { formatDate } from '../data/terms.ts';
+
+const issues = (await getCollection('newsletter'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <div class="newspaper card">
@@ -15,9 +16,9 @@ const issues = [
   <ul class="issue-list">
     {issues.map((issue) => (
       <li class="issue-item">
-        <p class="issue-date">{issue.date}</p>
-        <h3 class="issue-title">{issue.title}</h3>
-        <p class="issue-author">{issue.author}</p>
+        <p class="issue-date">{formatDate(issue.data.date)}</p>
+        <h3 class="issue-title"><a href={`/newspaper/${issue.id}`}>{issue.data.title}</a></h3>
+        <p class="issue-author">{issue.data.author}</p>
       </li>
     ))}
   </ul>

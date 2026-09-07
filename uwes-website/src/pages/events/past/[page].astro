@@ -1,12 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import Nav from '../../../components/Nav.astro';
 import Footer from '../../../components/Footer.astro';
-import { pastEvents } from '../../../data/events.js';
+import { formatDate } from '../../../data/terms.ts';
+import { splitEvents } from '../../../utils/events.ts';
 
 export async function getStaticPaths({ paginate }) {
-  const sorted = [...pastEvents].reverse();
-  return paginate(sorted, { pageSize: 10 });
+  const { past } = splitEvents(await getCollection('events'));
+  return paginate(past, { pageSize: 10 });
 }
 
 const { page } = Astro.props;
@@ -26,8 +28,8 @@ const { page } = Astro.props;
         <ul class="event-list">
           {page.data.map((event) => (
             <li class="event-item">
-              <p class="event-date">{event.date}</p>
-              <h3 class="event-title"><a href="#">{event.title}</a></h3>
+              <p class="event-date">{formatDate(event.data.date)}</p>
+              <h3 class="event-title">{event.data.title}</h3>
             </li>
           ))}
         </ul>
@@ -74,13 +76,9 @@ const { page } = Astro.props;
     margin-bottom: 0.4rem;
   }
 
-  .event-title a {
+  .event-title {
     color: var(--color-text);
     font-size: 1.1rem;
-  }
-
-  .event-title a:hover {
-    color: var(--color-accent-light);
   }
 
   .pagination {

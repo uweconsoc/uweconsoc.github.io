@@ -1,9 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-import { upcomingEvents, pastEvents } from '../data/events.js';
+import { splitEvents } from '../utils/events.ts';
+import AddToCalendar from '../components/AddToCalendar.astro';
+import { formatTimeRange } from '../utils/calendar.js';
+import { formatDate } from '../data/terms.ts';
+
+const { upcoming: upcomingEvents, past: pastEvents } = splitEvents(await getCollection('events'));
 
 const recentPastEvents = pastEvents.slice(0, 5);
 
@@ -23,12 +29,21 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
 
         <div class="events-layout">
           <div class="featured-event panel">
-            <div class="featured-flyer"></div>
-            <p class="event-date">{featuredEvent.date}</p>
-            <h2 class="featured-title">{featuredEvent.title}</h2>
-            <p class="featured-location">{featuredEvent.location}</p>
-            {featuredEvent.description && (
-              <p class="featured-description">{featuredEvent.description}</p>
+            {featuredEvent ? (
+              <>
+                <div class="featured-flyer"></div>
+                <p class="event-date">{formatDate(featuredEvent.data.date)} · {formatTimeRange(featuredEvent.data.startTime, featuredEvent.data.endTime)}</p>
+                <h2 class="featured-title">{featuredEvent.data.title}</h2>
+                <p class="featured-location">{featuredEvent.data.location}</p>
+                {featuredEvent.data.description && (
+                  <p class="featured-description">{featuredEvent.data.description}</p>
+                )}
+                <div class="featured-calendar">
+                  <AddToCalendar event={featuredEvent.data} />
+                </div>
+              </>
+            ) : (
+              <p class="empty-state">No upcoming events scheduled — check back soon.</p>
             )}
           </div>
 
@@ -42,14 +57,18 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
                   <ul class="event-list">
                     {visibleUpcoming.map((event) => (
                       <li class="event-item">
-                        <p class="event-date">{event.date}</p>
-                        <h4 class="event-title"><a href="#">{event.title}</a></h4>
-                        <p class="event-location">{event.location}</p>
+                        <p class="event-date">{formatDate(event.data.date)} · {formatTimeRange(event.data.startTime, event.data.endTime)}</p>
+                        <h4 class="event-title">{event.data.title}</h4>
+                        <p class="event-location">{event.data.location}</p>
+                        {event.data.description && (
+                          <p class="event-description">{event.data.description}</p>
+                        )}
+                        <AddToCalendar event={event.data} compact />
                       </li>
                     ))}
                   </ul>
                   {hasMoreUpcoming && (
-                    <a href="#" class="view-all-page view-all-inline">View all upcoming events →</a>
+                    <p class="view-all-page view-all-inline">View all upcoming events →</p>
                   )}
                 </>
               )}
@@ -63,8 +82,8 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
               <ul class="event-list">
                 {recentPastEvents.map((event) => (
                   <li class="event-item">
-                    <p class="event-date">{event.date}</p>
-                    <h4 class="event-title"><a href="#">{event.title}</a></h4>
+                    <p class="event-date">{formatDate(event.data.date)}</p>
+                    <h4 class="event-title">{event.data.title}</h4>
                   </li>
                 ))}
               </ul>
@@ -122,6 +141,11 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
     color: var(--color-text-muted);
     font-size: 0.9rem;
     line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .featured-calendar {
+    display: flex;
   }
 
   /* Side blocks (right) */
@@ -157,18 +181,22 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
     margin-bottom: 0.3rem;
   }
 
-  .event-title a {
+  .event-title {
     color: var(--color-text);
     font-size: 1.05rem;
-  }
-
-  .event-title a:hover {
-    color: var(--color-accent-light);
   }
 
   .event-location {
     color: var(--color-text-muted);
     font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .event-description {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
   }
 
   .empty-state {
