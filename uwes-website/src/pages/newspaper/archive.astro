@@ -1,17 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import { newsletterIssues, groupByTerm } from '../../data/newsletter.js';
+import { groupByTerm, formatDate } from '../../data/terms.ts';
 
-const grouped = groupByTerm(newsletterIssues);
-const termOrder = Object.keys(grouped).sort((a, b) => {
-  const [, yearA] = a.split(' ');
-  const [, yearB] = b.split(' ');
-  if (yearA !== yearB) return yearB - yearA;
-  const seasonOrder = { Fall: 3, Spring: 2, Winter: 1 };
-  const seasonA = a.split(' ')[0];
-  const seasonB = b.split(' ')[0];
+const grouped = groupByTerm(await getCollection('newsletter'));
+const seasonOrder: Record<string, number> = { Fall: 3, Spring: 2, Winter: 1 };
+const termOrder: string[] = Object.keys(grouped).sort((a: string, b: string) => {
+  const [seasonA, yearA] = a.split(' ');
+  const [seasonB, yearB] = b.split(' ');
+  if (yearA !== yearB) return Number(yearB) - Number(yearA);
   return seasonOrder[seasonB] - seasonOrder[seasonA];
 });
 ---
@@ -36,8 +35,8 @@ const termOrder = Object.keys(grouped).sort((a, b) => {
             <ul class="issue-list">
               {grouped[term].map((issue) => (
                 <li class="issue-item">
-                  <p class="issue-date">{issue.date}</p>
-                  <h3 class="issue-title"><a href="#">{issue.title}</a></h3>
+                  <p class="issue-date">{formatDate(issue.data.date)}</p>
+                  <h3 class="issue-title"><a href={`/newspaper/${issue.id}`}>{issue.data.title}</a></h3>
                 </li>
               ))}
             </ul>

@@ -1,0 +1,112 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { formatDate } from '../../data/terms.ts';
+
+export async function getStaticPaths() {
+  const entries: CollectionEntry<'articles'>[] = await getCollection('articles');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<'articles'>;
+};
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.title} - UW Economics Society`}>
+  <Nav />
+  <main class="section-light">
+    <section class="article-detail-page">
+      <div class="article-detail-inner">
+        <div class="page-header">
+          <a href="/articles" class="view-all-header">← Back to Articles</a>
+        </div>
+        <article class="card article-detail-card">
+          {entry.data.cover && (
+            <Image src={entry.data.cover} alt={entry.data.coverAlt ?? ''} class="article-detail-cover" />
+          )}
+          <p class="article-date">{formatDate(entry.data.date)}</p>
+          <h1 class="page-title">{entry.data.title}</h1>
+          <p class="featured-author">{entry.data.author}</p>
+          <div class="article-body">
+            <Content />
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .article-detail-page {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg);
+  }
+
+  .article-detail-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .article-detail-card {
+    padding: 2.5rem;
+  }
+
+  .article-detail-cover {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-author {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0.3rem 0 1.5rem;
+  }
+
+  .article-body {
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+  .article-body :global(h2),
+  .article-body :global(h3) {
+    margin: 1.75rem 0 0.75rem;
+  }
+
+  .article-body :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .article-body :global(a) {
+    color: var(--color-accent-cream);
+    text-decoration: underline;
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0 0 1rem 1.5rem;
+  }
+</style>

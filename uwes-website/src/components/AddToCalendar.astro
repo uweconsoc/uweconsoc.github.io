@@ -1,0 +1,100 @@
+---
+import {
+  buildGoogleCalendarUrl,
+  buildICSDataUrl,
+  buildICSFilename,
+} from '../utils/calendar.js';
+
+const { event, compact = false } = Astro.props;
+
+const googleUrl = buildGoogleCalendarUrl(event);
+const icsHref = buildICSDataUrl(event);
+const icsFilename = buildICSFilename(event);
+---
+
+<details class={`add-to-calendar ${compact ? 'compact' : ''}`}>
+  <summary class="add-to-calendar-trigger">
+    Add to Calendar
+    <span class="add-to-calendar-arrow">▾</span>
+  </summary>
+  <div class="add-to-calendar-menu">
+    <a href={googleUrl} target="_blank" rel="noopener noreferrer">Google Calendar</a>
+    <a href={icsHref} download={icsFilename}>Apple / Other (.ics)</a>
+  </div>
+</details>
+
+<style>
+  .add-to-calendar {
+    position: relative;
+    display: inline-block;
+  }
+
+  .add-to-calendar-trigger {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-accent-cream);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0;
+  }
+
+  .add-to-calendar-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .add-to-calendar-trigger:hover {
+    color: var(--color-accent-light);
+  }
+
+  .compact .add-to-calendar-trigger {
+    font-size: 0.75rem;
+  }
+
+  .add-to-calendar-arrow {
+    font-size: 0.65rem;
+    transition: transform 0.2s ease;
+  }
+
+  .add-to-calendar[open] .add-to-calendar-arrow {
+    transform: rotate(180deg);
+  }
+
+  .add-to-calendar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+    padding: 0.4rem 0;
+    min-width: 190px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+  }
+
+  .add-to-calendar-menu a {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    color: var(--color-text);
+  }
+
+  .add-to-calendar-menu a:hover {
+    color: var(--color-accent-light);
+    background-color: var(--color-card-bg);
+  }
+</style>
+
+<script>
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.add-to-calendar[open]').forEach((menu) => {
+      if (e.target instanceof Node && !menu.contains(e.target)) {
+        menu.removeAttribute('open');
+      }
+    });
+  });
+</script>

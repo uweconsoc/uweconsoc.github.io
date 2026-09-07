@@ -1,10 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { researchArticles } from '../data/articles.js';
+import { formatDate } from '../data/terms.ts';
 
-const [featuredArticle, ...otherArticles] = researchArticles;
+const allArticles: CollectionEntry<'articles'>[] = (await getCollection('articles')).sort(
+  (a: CollectionEntry<'articles'>, b: CollectionEntry<'articles'>) =>
+    b.data.date.getTime() - a.data.date.getTime()
+);
+const [featuredArticle, ...otherArticles] = allArticles;
 const MAX_VISIBLE = 6;
 const visibleArticles = otherArticles.slice(0, MAX_VISIBLE);
 const hasMoreArticles = otherArticles.length > MAX_VISIBLE;
@@ -20,12 +27,16 @@ const hasMoreArticles = otherArticles.length > MAX_VISIBLE;
 
         <div class="articles-layout">
           <div class="featured-article panel">
-            <div class="featured-flyer"></div>
-            <p class="article-date">{featuredArticle.date}</p>
-            <h2 class="featured-title"><a href="#">{featuredArticle.title}</a></h2>
-            <p class="featured-author">{featuredArticle.author}</p>
-            <p class="featured-excerpt">{featuredArticle.excerpt}</p>
-            <a href="#" class="read-more">Read Full Article →</a>
+            {featuredArticle.data.cover ? (
+              <Image src={featuredArticle.data.cover} alt={featuredArticle.data.coverAlt ?? ''} class="featured-flyer" />
+            ) : (
+              <div class="featured-flyer"></div>
+            )}
+            <p class="article-date">{formatDate(featuredArticle.data.date)}</p>
+            <h2 class="featured-title"><a href={`/articles/${featuredArticle.id}`}>{featuredArticle.data.title}</a></h2>
+            <p class="featured-author">{featuredArticle.data.author}</p>
+            <p class="featured-excerpt">{featuredArticle.data.excerpt}</p>
+            <a href={`/articles/${featuredArticle.id}`} class="read-more">Read Full Article →</a>
           </div>
 
           <div class="side-block panel">
@@ -40,9 +51,9 @@ const hasMoreArticles = otherArticles.length > MAX_VISIBLE;
               <ul class="article-list">
                 {visibleArticles.map((article) => (
                   <li class="article-item">
-                    <p class="article-date">{article.date}</p>
-                    <h4 class="article-title"><a href="#">{article.title}</a></h4>
-                    <p class="article-excerpt">{article.excerpt}</p>
+                    <p class="article-date">{formatDate(article.data.date)}</p>
+                    <h4 class="article-title"><a href={`/articles/${article.id}`}>{article.data.title}</a></h4>
+                    <p class="article-excerpt">{article.data.excerpt}</p>
                   </li>
                 ))}
               </ul>

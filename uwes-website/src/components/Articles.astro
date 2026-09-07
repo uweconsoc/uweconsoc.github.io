@@ -1,9 +1,10 @@
 ---
-const articles = [
-  { title: "Modeling Inflation Expectations in Post-Pandemic Markets", date: "Aug 12, 2026", author: "Research Team" },
-  { title: "The Economics of University Housing Shortages", date: "Aug 5, 2026", author: "Research Team" },
-  { title: "ESG Investing: Signal or Noise?", date: "Jul 29, 2026", author: "Research Team" },
-];
+import { getCollection } from 'astro:content';
+import { formatDate } from '../data/terms.ts';
+
+const articles = (await getCollection('articles'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <div class="articles card">
@@ -15,9 +16,9 @@ const articles = [
   <ul class="article-list">
     {articles.map((article) => (
         <li class="article-item">
-         <p class="article-date">{article.date}</p>
-          <h3 class="article-title"><a href="#">{article.title}</a></h3>
-         <p class="article-author">{article.author}</p>
+         <p class="article-date">{formatDate(article.data.date)}</p>
+          <h3 class="article-title"><a href={`/articles/${article.id}`}>{article.data.title}</a></h3>
+         <p class="article-author">{article.data.author}</p>
       </li>
     ))}
   </ul>

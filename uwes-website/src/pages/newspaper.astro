@@ -1,10 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { newsletterIssues } from '../data/newsletter.js';
+import { formatDate } from '../data/terms.ts';
 
-const [featuredIssue, ...otherIssues] = newsletterIssues;
+const allIssues: CollectionEntry<'newsletter'>[] = (await getCollection('newsletter')).sort(
+  (a: CollectionEntry<'newsletter'>, b: CollectionEntry<'newsletter'>) =>
+    b.data.date.getTime() - a.data.date.getTime()
+);
+const [featuredIssue, ...otherIssues] = allIssues;
 const MAX_VISIBLE = 6;
 const visibleIssues = otherIssues.slice(0, MAX_VISIBLE);
 const hasMoreIssues = otherIssues.length > MAX_VISIBLE;
@@ -20,12 +27,16 @@ const hasMoreIssues = otherIssues.length > MAX_VISIBLE;
 
         <div class="newspaper-layout">
           <div class="featured-issue panel">
-            <div class="featured-flyer"></div>
-            <p class="issue-date">{featuredIssue.date}</p>
-            <h2 class="featured-title"><a href="#">{featuredIssue.title}</a></h2>
-            <p class="featured-author">{featuredIssue.author}</p>
-            <p class="featured-excerpt">{featuredIssue.excerpt}</p>
-            <a href="#" class="read-more">Read Full Issue →</a>
+            {featuredIssue.data.cover ? (
+              <Image src={featuredIssue.data.cover} alt={featuredIssue.data.coverAlt ?? ''} class="featured-flyer" />
+            ) : (
+              <div class="featured-flyer"></div>
+            )}
+            <p class="issue-date">{formatDate(featuredIssue.data.date)}</p>
+            <h2 class="featured-title"><a href={`/newspaper/${featuredIssue.id}`}>{featuredIssue.data.title}</a></h2>
+            <p class="featured-author">{featuredIssue.data.author}</p>
+            <p class="featured-excerpt">{featuredIssue.data.excerpt}</p>
+            <a href={`/newspaper/${featuredIssue.id}`} class="read-more">Read Full Issue →</a>
           </div>
 
           <div class="side-block panel">
@@ -40,9 +51,9 @@ const hasMoreIssues = otherIssues.length > MAX_VISIBLE;
               <ul class="issue-list">
                 {visibleIssues.map((issue) => (
                   <li class="issue-item">
-                    <p class="issue-date">{issue.date}</p>
-                    <h4 class="issue-title"><a href="#">{issue.title}</a></h4>
-                    <p class="issue-excerpt">{issue.excerpt}</p>
+                    <p class="issue-date">{formatDate(issue.data.date)}</p>
+                    <h4 class="issue-title"><a href={`/newspaper/${issue.id}`}>{issue.data.title}</a></h4>
+                    <p class="issue-excerpt">{issue.data.excerpt}</p>
                   </li>
                 ))}
               </ul>
