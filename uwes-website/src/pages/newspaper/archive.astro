@@ -23,7 +23,7 @@ const termOrder = Object.keys(grouped).sort((a, b) => {
       <div class="archive-page-inner">
         <div class="page-header">
           <h1 class="page-title">Newsletter Archive</h1>
-          <a href="/newspaper" class="view-all">Back to Newsletter →</a>
+          <a href="/newspaper" class="view-all-header">Back to Newsletter →</a>
         </div>
         <p class="page-subtitle">Browse past issues by term</p>
 
@@ -60,28 +60,7 @@ const termOrder = Object.keys(grouped).sort((a, b) => {
     margin: 0 auto;
   }
 
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
-  }
-
-  .view-all {
-    color: var(--color-accent-cream);
-    font-size: 0.9rem;
-    font-weight: 700;
-  }
-
   .page-subtitle {
-    color: var(--color-text-muted);
     margin-bottom: 2.5rem;
   }
 

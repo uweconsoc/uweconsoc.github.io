@@ -1,22 +1,47 @@
 ---
-import '../styles/global.css';
-const { title = "UW Economics Society" } = Astro.props;
+import { getImage } from "astro:assets";
+import "../styles/global.css";
+import navIcon from "../assets/logo-icon-white-bg.png";
+
+const { title = "UW Economics Society", preloadImage } = Astro.props;
+
+const navIconImage = await getImage({ src: navIcon });
+const heroImage = preloadImage ? await getImage({ src: preloadImage }) : null;
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>{title}</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="/images/logo-icon.png" />
+        <title>{title}</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap"
+            rel="stylesheet"
+        />
 
-  
-</head>
-<body>
-  <slot />
-</body>
+        <link
+            rel="preload"
+            as="image"
+            href={navIconImage.src}
+            fetchpriority="high"
+        />
+        {
+            heroImage && (
+                <link
+                    rel="preload"
+                    as="image"
+                    href={heroImage.src}
+                    fetchpriority="high"
+                />
+            )
+        }
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>

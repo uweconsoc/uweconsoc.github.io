@@ -1,126 +1,137 @@
+---
+import { Image } from "astro:assets";
+import logoBanner from "../assets/logo-banner.png";
+---
+
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <p class="hero-label">EST. 1991 · ACADEMIC YEAR 2025-26</p>
-      <h1 class="hero-title">
-        University of Waterloo<br />
-        <span class="accent">Economics Society</span>
-      </h1>
-      <p class="hero-desc">
-        A student-run society at the University of Waterloo dedicated to
-        economics, global markets, and policy analysis — through research,
-        publications, and community events.
-      </p>
-      <div class="hero-buttons">
-        <a href="/newspaper" class="btn-primary">Read Latest News →</a>
-        <a href="/markets" class="btn-secondary">View Markets</a>
-      </div>
+    <div class="hero-inner">
+        <div class="hero-text">
+            <p class="hero-label">EST. 1991 · ACADEMIC YEAR 2025-26</p>
+            <h1 class="hero-title">
+                University of Waterloo<br />
+                <span class="accent">Economics Society</span>
+            </h1>
+            <p class="hero-desc">
+                A student-run society at the University of Waterloo dedicated to
+                economics, global markets, and policy analysis — through
+                research, publications, and community events.
+            </p>
+            <div class="hero-buttons">
+                <a href="/newspaper" class="btn-primary">Read Latest News →</a>
+                <a href="/markets" class="btn-secondary">View Markets</a>
+            </div>
+        </div>
+        <div class="hero-logo">
+            <Image src={logoBanner} alt="UWES Logo" loading="eager" fetchpriority="high" />
+        </div>
     </div>
-    <div class="hero-logo">
-      <img src="/images/logo-banner.png" alt="UWES Logo" />
-    </div>
-  </div>
 </section>
 
 <style>
-  .hero {
-    padding: 4rem 2rem;
-    border-bottom: 1px solid transparent;
-    border-image: linear-gradient(to right, transparent, rgba(240, 220, 174, 0.3), transparent) 1;
-  }
+    .hero {
+        padding: 4rem 2rem;
+        border-bottom: 1px solid transparent;
+        border-image: linear-gradient(
+                to right,
+                transparent,
+                rgba(240, 220, 174, 0.3),
+                transparent
+            )
+            1;
+    }
 
-  .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3rem;
-  }
-
-  .hero-text {
-    flex: 0 1 560px;
-  }
-
-  .hero-label {
-    color: var(--color-accent);
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 1rem;
-  }
-
-  .hero-title {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-title .accent {
-    color: var(--color-accent);
-  }
-
-  .hero-desc {
-    color: var(--color-text-muted);
-    font-size: 1.05rem;
-    max-width: 500px;
-    margin-bottom: 2rem;
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .btn-primary {
-    background-color: var(--color-accent-cream);
-    color: var(--color-bg);
-    padding: 0.85rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 700;
-  }
-
-  .btn-secondary {
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    color: var(--color-text);
-    padding: 0.85rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 700;
-  }
-
-  .hero-logo {
-    flex: 0 0 auto;
-    width: 420px;
-  }
-
-  .hero-logo img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* 手机版:logo 在上,文字在下 */
-  @media (max-width: 768px) {
     .hero-inner {
-      flex-direction: column-reverse;
-      text-align: center;
-      gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    .hero-text {
+        flex: 0 1 560px;
+    }
+
+    .hero-label {
+        color: var(--color-accent);
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
     }
 
     .hero-title {
-      font-size: 2.5rem;
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-title .accent {
+        color: var(--color-accent);
     }
 
     .hero-desc {
-      margin-left: auto;
-      margin-right: auto;
+        color: var(--color-text-muted);
+        font-size: 1.05rem;
+        max-width: 500px;
+        margin-bottom: 2rem;
     }
 
     .hero-buttons {
-      justify-content: center;
-      flex-wrap: wrap;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-primary {
+        background-color: var(--color-accent-cream);
+        color: var(--color-bg);
+        padding: 0.85rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 700;
+    }
+
+    .btn-secondary {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        color: var(--color-text);
+        padding: 0.85rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 700;
     }
 
     .hero-logo {
-      width: 180px;
+        flex: 0 0 auto;
+        width: 420px;
     }
-  }
+
+    .hero-logo img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 手机版:logo 在上,文字在下 */
+    @media (max-width: 768px) {
+        .hero-inner {
+            flex-direction: column-reverse;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-desc {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-logo {
+            width: 180px;
+        }
+    }
 </style>
