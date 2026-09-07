@@ -1,12 +1,16 @@
 ---
 import { getImage } from "astro:assets";
 import "../styles/global.css";
+import "@fontsource-variable/dm-sans/wght.css";
+import "@fontsource-variable/playfair-display/wght.css";
+import dmSansWoff from "@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url";
+import playfairWoff from "@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url";
 import navIcon from "../assets/logo-icon-white-bg.png";
 
 const { title = "UW Economics Society", preloadImage } = Astro.props;
 
-const navIconImage = await getImage({ src: navIcon });
-const heroImage = preloadImage ? await getImage({ src: preloadImage }) : null;
+const navIconImage = await getImage({ src: navIcon, width: 56, format: "webp" });
+const heroImage = preloadImage ? await getImage({ src: preloadImage, width: 840, format: "webp" }) : null;
 ---
 
 <!doctype html>
@@ -16,13 +20,6 @@ const heroImage = preloadImage ? await getImage({ src: preloadImage }) : null;
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/png" href="/images/logo-icon.png" />
         <title>{title}</title>
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap"
-            rel="stylesheet"
-        />
 
         <link
             rel="preload"
@@ -40,6 +37,9 @@ const heroImage = preloadImage ? await getImage({ src: preloadImage }) : null;
                 />
             )
         }
+
+        <link rel="preload" as="font" type="font/woff2" href={dmSansWoff} crossorigin />
+        <link rel="preload" as="font" type="font/woff2" href={playfairWoff} crossorigin />
     </head>
     <body>
         <slot />
