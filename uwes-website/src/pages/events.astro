@@ -82,8 +82,10 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
               <ul class="event-list">
                 {recentPastEvents.map((event) => (
                   <li class="event-item">
-                    <p class="event-date">{formatDate(event.data.date)}</p>
-                    <h4 class="event-title">{event.data.title}</h4>
+                    <a href={`/events/${event.id}`} class="event-link">
+                      <p class="event-date">{formatDate(event.data.date)}</p>
+                      <h4 class="event-title">{event.data.title}</h4>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -172,6 +174,15 @@ const hasMoreUpcoming = otherUpcoming.length > MAX_VISIBLE;
 
   .event-item:last-child {
     border-bottom: none;
+  }
+
+  .event-link {
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+
+  .event-link:hover {
+    opacity: 0.7;
   }
 
   .event-date {

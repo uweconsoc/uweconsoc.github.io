@@ -37,14 +37,18 @@ const timeSchema = z
 
 const events = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    startTime: timeSchema.optional(),
-    endTime: timeSchema.optional(),
-    location: z.string(),
-    description: z.string().optional(),
-  }),
+  schema: ({ image }: SchemaContext) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      startTime: timeSchema.optional(),
+      endTime: timeSchema.optional(),
+      location: z.string(),
+      description: z.string().optional(),
+      cover: image().optional(),
+      coverAlt: z.string().optional(),
+      gallery: z.array(image()).optional(),
+    }),
 });
 
 export const collections = { articles, newsletter, events };

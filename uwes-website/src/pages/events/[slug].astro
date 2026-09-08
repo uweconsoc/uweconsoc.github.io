@@ -1,0 +1,143 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { formatDate } from '../../data/terms.ts';
+import { formatTimeRange } from '../../utils/calendar.js';
+
+export async function getStaticPaths() {
+  const entries: CollectionEntry<'events'>[] = await getCollection('events');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<'events'>;
+};
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const timeRange = formatTimeRange(entry.data.startTime, entry.data.endTime);
+---
+
+<Layout title={`${entry.data.title} - UW Economics Society`}>
+  <Nav />
+  <main class="section-light">
+    <section class="event-detail-page">
+      <div class="event-detail-inner">
+        <div class="page-header">
+          <a href="/events/past/1" class="view-all-header">← Back to Past Events</a>
+        </div>
+        <article class="card event-detail-card">
+          {entry.data.cover && (
+            <Image src={entry.data.cover} alt={entry.data.coverAlt ?? ''} format="webp" loading="eager" fetchpriority="high" class="event-detail-cover" />
+          )}
+          <p class="event-date">{formatDate(entry.data.date)}{timeRange && ` · ${timeRange}`}</p>
+          <h1 class="page-title">{entry.data.title}</h1>
+          <p class="event-location">{entry.data.location}</p>
+          {entry.data.description && <p class="event-description">{entry.data.description}</p>}
+          <div class="article-body">
+            <Content />
+          </div>
+          {entry.data.gallery && entry.data.gallery.length > 0 && (
+            <div class="event-gallery">
+              {entry.data.gallery.map((photo) => (
+                <Image src={photo} alt="" format="webp" class="event-gallery-photo" />
+              ))}
+            </div>
+          )}
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .event-detail-page {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg);
+  }
+
+  .event-detail-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .event-detail-card {
+    padding: 2.5rem;
+  }
+
+  .event-detail-cover {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .event-date {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-location {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0.3rem 0 1.5rem;
+  }
+
+  .event-description {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-body {
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+  .article-body :global(h2),
+  .article-body :global(h3) {
+    margin: 1.75rem 0 0.75rem;
+  }
+
+  .article-body :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .article-body :global(a) {
+    color: var(--color-accent-cream);
+    text-decoration: underline;
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0 0 1rem 1.5rem;
+  }
+
+  .event-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .event-gallery-photo {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+</style>
