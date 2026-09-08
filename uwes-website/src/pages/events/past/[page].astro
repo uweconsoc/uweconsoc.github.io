@@ -28,8 +28,10 @@ const { page } = Astro.props;
         <ul class="event-list">
           {page.data.map((event) => (
             <li class="event-item">
-              <p class="event-date">{formatDate(event.data.date)}</p>
-              <h3 class="event-title">{event.data.title}</h3>
+              <a href={`/events/${event.id}`} class="event-link">
+                <p class="event-date">{formatDate(event.data.date)}</p>
+                <h3 class="event-title">{event.data.title}</h3>
+              </a>
             </li>
           ))}
         </ul>
@@ -65,8 +67,17 @@ const { page } = Astro.props;
   }
 
   .event-item {
-    padding: 1.25rem 0;
     border-bottom: 1px solid var(--color-card-border);
+  }
+
+  .event-link {
+    display: block;
+    padding: 1.25rem 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .event-link:hover {
+    opacity: 0.7;
   }
 
   .event-date {

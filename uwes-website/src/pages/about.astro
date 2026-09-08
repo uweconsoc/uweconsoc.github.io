@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACT_EMAIL } from '../data/site.js';
 ---
 
 <Layout title="About - UW Economics Society">
@@ -23,7 +24,7 @@ import Footer from '../components/Footer.astro';
                 We aim to provide social and academic events throughout the year that contribute to the student experience and promote networking and learning opportunities.
             </p>
             <p>
-                If you have any questions about the society or have any feedback you would like to share, please reach out to us at: <a class="email-highlight" href="mailto:uw.economics.society@gmail.com">uw.economics.society@gmail.com</a>
+                If you have any questions about the society or have any feedback you would like to share, please reach out to us at: <a class="email-highlight" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </p>
         </div>
       </div>
